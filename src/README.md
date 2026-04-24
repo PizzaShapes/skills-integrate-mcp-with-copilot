@@ -1,11 +1,13 @@
 # Mergington High School Activities API
 
-A super simple FastAPI application that allows students to view and sign up for extracurricular activities.
+A super simple FastAPI application that allows students to view extracurricular activities while teachers manage registrations.
 
 ## Features
 
 - View all available extracurricular activities
-- Sign up for activities
+- Teacher login backed by a JSON credential file
+- Register students for activities
+- Unregister students from activities
 
 ## Getting Started
 
@@ -18,19 +20,33 @@ A super simple FastAPI application that allows students to view and sign up for 
 2. Run the application:
 
    ```
-   python app.py
+   uvicorn app:app --reload
    ```
 
 3. Open your browser and go to:
+   - App: http://localhost:8000/
    - API documentation: http://localhost:8000/docs
    - Alternative documentation: http://localhost:8000/redoc
+
+## Teacher Access
+
+Teacher credentials are stored in `teachers.json`.
+
+Sample accounts:
+
+- `principal@mergington.edu` / `mergington-admin`
+- `coach.taylor@mergington.edu` / `falcons-rule`
 
 ## API Endpoints
 
 | Method | Endpoint                                                          | Description                                                         |
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| GET    | `/auth/session`                                                   | Check whether a teacher is currently signed in                      |
+| POST   | `/auth/login`                                                     | Sign in as a teacher and create an authenticated session            |
+| POST   | `/auth/logout`                                                    | End the current teacher session                                     |
+| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Register a student for an activity                                  |
+| DELETE | `/activities/{activity_name}/unregister?email=student@mergington.edu` | Remove a student from an activity                                |
 
 ## Data Model
 
@@ -47,4 +63,4 @@ The application uses a simple data model with meaningful identifiers:
    - Name
    - Grade level
 
-All data is stored in memory, which means data will be reset when the server restarts.
+Activity data and teacher sessions are stored in memory, which means changes are reset when the server restarts.

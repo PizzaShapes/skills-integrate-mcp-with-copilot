@@ -8,9 +8,41 @@
   </head>
   <body>
     <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+      <div class="header-bar">
+        <div>
+          <h1>Mergington High School</h1>
+          <h2>Extracurricular Activities</h2>
+        </div>
+        <div class="admin-controls">
+          <button id="admin-toggle" class="icon-button" type="button" aria-haspopup="dialog" aria-controls="admin-panel" aria-expanded="false">
+            <span class="icon-button__icon" aria-hidden="true">👤</span>
+            <span id="admin-toggle-label">Teacher Login</span>
+          </button>
+          <button id="logout-button" class="secondary-button hidden" type="button">Log Out</button>
+        </div>
+      </div>
     </header>
+
+    <div id="admin-panel" class="admin-panel hidden" role="dialog" aria-modal="true" aria-labelledby="admin-panel-title">
+      <div class="admin-panel__card">
+        <div class="admin-panel__header">
+          <h3 id="admin-panel-title">Teacher Login</h3>
+          <button id="admin-panel-close" class="icon-button icon-button--small" type="button" aria-label="Close login panel">✕</button>
+        </div>
+        <p class="admin-panel__copy">Only teachers can register or unregister students.</p>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">Teacher Username:</label>
+            <input type="text" id="username" required placeholder="principal@mergington.edu" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" required placeholder="Enter password" />
+          </div>
+          <button type="submit">Log In</button>
+        </form>
+      </div>
+    </div>
 
     <main>
       <section id="activities-container">
@@ -22,7 +54,8 @@
       </section>
 
       <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
+        <h3>Teacher Actions</h3>
+        <p id="teacher-status" class="info-banner">Log in as a teacher to manage student registrations.</p>
         <form id="signup-form">
           <div class="form-group">
             <label for="email">Student Email:</label>
@@ -35,7 +68,7 @@
               <!-- Activity options will be loaded here -->
             </select>
           </div>
-          <button type="submit">Sign Up</button>
+          <button id="signup-button" type="submit">Register Student</button>
         </form>
         <div id="message" class="hidden"></div>
       </section>
